@@ -8,15 +8,16 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(12),
-        color:lightGrey,
-        width:context.screenWidth,
-        height:context.screenHeight,
-        child: SafeArea(child: Column(
+      padding: EdgeInsets.all(5),
+      color: lightGrey,
+      width: context.screenWidth,
+      height: context.screenHeight,
+      child: SafeArea(
+        child: Column(
           children: [
             Container(
               alignment: Alignment.center,
-              height:60,
+              height: 60,
               color: lightGrey,
               child: TextFormField(
                 decoration: InputDecoration(
@@ -27,18 +28,29 @@ class Home extends StatelessWidget {
                 ),
               ),
             ),
-            VxSwiper.builder(
-              aspectRatio: 16/9,
+            Expanded( // Wrap the VxSwiper.builder with Expanded widget
+              child: VxSwiper.builder(
+                aspectRatio: 16 / 9,
                 autoPlay: true,
-                height:150,
+                height: 150,
                 enlargeCenterPage: true,
                 itemCount: slidersList.length,
-                itemBuilder: (context,index){
-              return Image.asset(slidersList[index], fit:BoxFit.fill,).box.rounded.clip(Clip.antiAlias).margin(EdgeInsets.symmetric(horizontal:8)).make();
-
-            })
+                itemBuilder: (context, index) {
+                  return Image.asset(
+                    slidersList[index],
+                    fit: BoxFit.fill,
+                  )
+                      .box
+                      .rounded
+                      .clip(Clip.antiAlias)
+                      .margin(EdgeInsets.symmetric(horizontal: 8))
+                      .make();
+                },
+              ),
+            ),
           ],
-        ),),
+        ),
+      ),
     );
   }
 }
