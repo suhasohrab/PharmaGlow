@@ -8,7 +8,6 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(5),
       color: lightGrey,
       width: context.screenWidth,
       height: context.screenHeight,
@@ -28,11 +27,10 @@ class Home extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded( // Wrap the VxSwiper.builder with Expanded widget
+            Expanded(
               child: VxSwiper.builder(
-                aspectRatio: 16 / 9,
                 autoPlay: true,
-                height: 150,
+                height: 220,
                 enlargeCenterPage: true,
                 itemCount: slidersList.length,
                 itemBuilder: (context, index) {
@@ -43,7 +41,6 @@ class Home extends StatelessWidget {
                       .box
                       .rounded
                       .clip(Clip.antiAlias)
-                      .margin(EdgeInsets.symmetric(horizontal: 8))
                       .make();
                 },
               ),
