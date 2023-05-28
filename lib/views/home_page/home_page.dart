@@ -253,12 +253,24 @@ class ProductsPage extends StatelessWidget {
               DocumentSnapshot document = products[index];
               // Access the product data from the document
               String productName = document['name'];
+              String productDesc = document['desc'];
               String productImage = document['image'];
               int productPrice = document['price'];
 
               return GestureDetector(
                 onTap: () {
                   // Navigate to product details page
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductDetailsPage(
+                        productName: productName,
+                        productImage: productImage,
+                        productPrice: productPrice,
+                        productDesc: productDesc,
+                      ),
+                    ),
+                  );
                 },
                 child: Card(
                   margin: EdgeInsets.all(10.0),
@@ -279,7 +291,7 @@ class ProductsPage extends StatelessWidget {
                       ),
                       SizedBox(height: 5.0),
                       Text(
-                        ' \$${productPrice.toStringAsFixed(2)}',
+                        ' \Rs. ${productPrice.toStringAsFixed(2)}',
                         style: TextStyle(
                           color: Color(0xFF001D66),
                           fontWeight: FontWeight.bold,
@@ -307,52 +319,76 @@ class ProductsPage extends StatelessWidget {
     );
   }
 }
-
 class ProductDetailsPage extends StatelessWidget {
   final String productName;
   final String productImage;
   final int productPrice;
+  final String productDesc;
 
   const ProductDetailsPage({
     required this.productName,
     required this.productImage,
     required this.productPrice,
+    required this.productDesc,
+
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: const Color(0xFF001D66),
         title: Text(productName),
       ),
-      body: Center(
+      body: Padding(
+        padding: EdgeInsets.all(1.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(height: 1.0),
             Image.network(
               productImage,
-              width: 200.0,
-              height: 200.0,
+              width: 400.0,
+              height: 400.0,
             ),
-            SizedBox(height: 10.0),
-            Text(
-              productName,
+
+            Center(
+            child:Text(
+              productDesc,
               style: TextStyle(
                 fontSize: 24.0,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w300,
               ),
+              textAlign: TextAlign.center,
+
+
             ),
-            SizedBox(height: 10.0),
+            ),
+            SizedBox(height: 50.0),
+
             Text(
-              'Price: \$${productPrice.toString()}',
+              '\Rs. ${productPrice.toString()}',
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.w500,
               ),
             ),
+            ElevatedButton(
+              onPressed: () {
+                // Add to cart functionality
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Color(
+                    0xFF001D66), // Set the desired background color
+              ),
+              child: Text('Add to Cart'),
+            ),
           ],
         ),
       ),
+
     );
   }
 }
+
